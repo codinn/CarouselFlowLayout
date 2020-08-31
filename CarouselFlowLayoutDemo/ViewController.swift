@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  UPCarouselFlowLayoutDemo
+//  CarouselFlowLayoutDemo
 //
 //  Created by Paul Ulric on 23/06/2016.
 //  Copyright © 2016 Paul Ulric. All rights reserved.
@@ -25,7 +25,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     fileprivate var pageSize: CGSize {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
+        let layout = self.collectionView.collectionViewLayout as! CarouselFlowLayout
         var pageSize = layout.itemSize
         if layout.scrollDirection == .horizontal {
             pageSize.width += layout.minimumLineSpacing
@@ -52,8 +52,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     fileprivate func setupLayout() {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.overlap(visibleOffset: 30)
+        let layout = self.collectionView.collectionViewLayout as! CarouselFlowLayout
+        layout.spacingMode = CarouselFlowLayout.SpacingMode.overlap(visibleOffset: 30)
     }
     
     fileprivate func createItems() -> [Character] {
@@ -71,7 +71,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @objc fileprivate func rotationDidChange() {
         guard !orientation.isFlat else { return }
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
+        let layout = self.collectionView.collectionViewLayout as! CarouselFlowLayout
         let direction: UICollectionView.ScrollDirection = orientation.isPortrait ? .horizontal : .vertical
         layout.scrollDirection = direction
         if currentPage > 0 {
@@ -109,7 +109,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: - UIScrollViewDelegate
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
+        let layout = self.collectionView.collectionViewLayout as! CarouselFlowLayout
         let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
         let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
         currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)

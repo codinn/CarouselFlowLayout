@@ -1,6 +1,5 @@
 //
-//  UPCarouselFlowLayout.swift
-//  UPCarouselFlowLayoutDemo
+//  CarouselFlowLayout.swift
 //
 //  Created by Paul Ulric on 23/06/2016.
 //  Copyright © 2016 Paul Ulric. All rights reserved.
@@ -8,14 +7,12 @@
 
 import UIKit
 
-
-public enum UPCarouselFlowLayoutSpacingMode {
-    case fixed(spacing: CGFloat)
-    case overlap(visibleOffset: CGFloat)
-}
-
-
-open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
+open class CarouselFlowLayout: UICollectionViewFlowLayout {
+    
+    public enum SpacingMode {
+        case fixed(spacing: CGFloat)
+        case overlap(visibleOffset: CGFloat)
+    }
     
     fileprivate struct LayoutState {
         var size: CGSize
@@ -25,41 +22,42 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
         }
     }
     
+    fileprivate var indexPathsOnDeletion = [IndexPath]()
+    fileprivate var indexPathsOnInsertion = [IndexPath]()
+    
     @IBInspectable open var sideItemScale: CGFloat = 0.6
     @IBInspectable open var sideItemAlpha: CGFloat = 0.6
     @IBInspectable open var sideItemShift: CGFloat = 0.0
-    open var spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 40)
+    open var spacingMode = SpacingMode.fixed(spacing: 40)
     
     fileprivate var state = LayoutState(size: CGSize.zero, direction: .horizontal)
     
     
     override open func prepare() {
         super.prepare()
-        let currentState = LayoutState(size: self.collectionView!.bounds.size, direction: self.scrollDirection)
-        
-        if !self.state.isEqual(currentState) {
-            self.setupCollectionView()
-            self.updateLayout()
-            self.state = currentState
-        }
-    }
-    
-    fileprivate func setupCollectionView() {
         guard let collectionView = self.collectionView else { return }
+        
+        let currentState = LayoutState(size: collectionView.safeAreaLayoutGuide.layoutFrame.size, direction: self.scrollDirection)
+        
+        if state.isEqual(currentState) { return }
+        
+        // setup collection view
         if collectionView.decelerationRate != UIScrollView.DecelerationRate.fast {
             collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
         }
-    }
-    
-    fileprivate func updateLayout() {
-        guard let collectionView = self.collectionView else { return }
         
-        let collectionSize = collectionView.bounds.size
+        // setup layout
+        let collectionSize = collectionView.safeAreaLayoutGuide.layoutFrame.size
         let isHorizontal = (self.scrollDirection == .horizontal)
         
         let yInset = (collectionSize.height - self.itemSize.height) / 2
         let xInset = (collectionSize.width - self.itemSize.width) / 2
-        self.sectionInset = UIEdgeInsets.init(top: yInset, left: xInset, bottom: yInset, right: xInset)
+        
+        if isHorizontal {
+            self.sectionInset = UIEdgeInsets.init(top: 0, left: xInset, bottom: 0, right: xInset)
+        } else {
+            self.sectionInset = UIEdgeInsets.init(top: yInset, left: 0, bottom: yInset, right: 0)
+        }
         
         let side = isHorizontal ? self.itemSize.width : self.itemSize.height
         let scaledItemOffset =  (side - side*self.sideItemScale) / 2
@@ -71,6 +69,8 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
             let inset = isHorizontal ? xInset : yInset
             self.minimumLineSpacing = inset - fullSizeSideItemOverlap
         }
+        
+        state = currentState
     }
     
     override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
@@ -78,10 +78,18 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
     }
     
     override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let superAttributes = super.layoutAttributesForElements(in: rect),
-            let attributes = NSArray(array: superAttributes, copyItems: true) as? [UICollectionViewLayoutAttributes]
+        guard let attributes = super.layoutAttributesForElements(in: rect)
             else { return nil }
-        return attributes.map({ self.transformLayoutAttributes($0) })
+        return attributes.map({ self.transformLayoutAttributes($0.copy() as! UICollectionViewLayoutAttributes) })
+    }
+    
+    open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        //        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        guard let attributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes else {
+            return nil
+        }
+        
+        return transformLayoutAttributes(attributes)
     }
     
     fileprivate func transformLayoutAttributes(_ attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
@@ -134,5 +142,78 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
         
         return targetContentOffset
     }
+    
 }
 
+extension CarouselFlowLayout {
+    
+    override open func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
+        super.prepare(forCollectionViewUpdates: updateItems)
+        
+        indexPathsOnInsertion.removeAll()
+        indexPathsOnDeletion.removeAll()
+        
+        for item in updateItems {
+            switch item.updateAction {
+            case .insert:
+                if let inserted = item.indexPathAfterUpdate {
+                    indexPathsOnInsertion.append(inserted)
+                }
+            case .delete:
+                if let deleted = item.indexPathBeforeUpdate {
+                    indexPathsOnDeletion.append(deleted)
+                }
+            case .move:
+                if let defore = item.indexPathBeforeUpdate, let after = item.indexPathAfterUpdate {
+                    //  indexPaths.append(defore)
+                    //  indexPaths.append(after)
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    override open func finalizeCollectionViewUpdates() {
+        super.finalizeCollectionViewUpdates()
+        indexPathsOnInsertion.removeAll()
+        indexPathsOnDeletion.removeAll()
+    }
+    
+    override open func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let i = indexPathsOnInsertion.firstIndex(of: itemIndexPath) else {
+            return super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
+        }
+        
+        guard let attributes = layoutAttributesForItem(at: itemIndexPath)?.copy() as? UICollectionViewLayoutAttributes else {
+            return nil
+        }
+        
+        var centerPoint = attributes.center
+        centerPoint.y = -attributes.frame.height / 2
+        attributes.center = centerPoint
+        // attributes.alpha = 0.2
+        indexPathsOnInsertion.remove(at: i)
+        
+        return attributes
+    }
+    
+    override open func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let i = indexPathsOnDeletion.firstIndex(of: itemIndexPath) else {
+            return super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath)
+        }
+        
+        guard let attributes = layoutAttributesForItem(at: itemIndexPath)?.copy() as? UICollectionViewLayoutAttributes else {
+            return nil
+        }
+        
+        var centerPoint = attributes.center
+        centerPoint.y = -attributes.frame.height / 2
+        attributes.center = centerPoint
+        // attributes.alpha = 0.2
+        indexPathsOnDeletion.remove(at: i)
+        
+        return attributes
+    }
+    
+}

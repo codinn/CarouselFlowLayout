@@ -59,7 +59,7 @@
 		01D387621D1C4B9D00CE4E1F = {
 			isa = PBXGroup;
 			children = (
-				01D3878A1D229BFC00CE4E1F /* UPCarouselFlowLayoutDemo */,
+				01D3878A1D229BFC00CE4E1F /* CarouselFlowLayoutDemo */,
 				01D3876C1D1C4B9D00CE4E1F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,7 +72,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		01D3878A1D229BFC00CE4E1F /* UPCarouselFlowLayoutDemo */ = {
+		01D3878A1D229BFC00CE4E1F /* CarouselFlowLayoutDemo */ = {
 			isa = PBXGroup;
 			children = (
 				01D3878B1D229BFC00CE4E1F /* AppDelegate.swift */,
@@ -86,7 +86,7 @@
 				01D3878F1D229BFC00CE4E1F /* Main.storyboard */,
 				01D387941D229BFC00CE4E1F /* Info.plist */,
 			);
-			path = UPCarouselFlowLayoutDemo;
+			path = CarouselFlowLayoutDemo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,7 +305,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = E78WKS7W4U;
-				INFOPLIST_FILE = UPCarouselFlowLayoutDemo/Info.plist;
+				INFOPLIST_FILE = CarouselFlowLayoutDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = UP.UPCarouselFlowLayoutDemo;
 				PRODUCT_NAME = UPCarouselFlowLayoutDemo;
@@ -320,7 +321,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = E78WKS7W4U;
-				INFOPLIST_FILE = UPCarouselFlowLayoutDemo/Info.plist;
+				INFOPLIST_FILE = CarouselFlowLayoutDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = UP.UPCarouselFlowLayoutDemo;
 				PRODUCT_NAME = UPCarouselFlowLayoutDemo;
