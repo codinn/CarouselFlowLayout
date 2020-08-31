@@ -120,7 +120,7 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
         let isHorizontal = (self.scrollDirection == .horizontal)
         
         let midSide = (isHorizontal ? collectionView.bounds.size.width : collectionView.bounds.size.height) / 2
-        let proposedContentOffsetCenterOrigin = (isHorizontal ? proposedContentOffset.x : proposedContentOffset.y) + midSide
+        let proposedContentOffsetCenterOrigin = (isHorizontal ? proposedContentOffset.x + 1000 * velocity.x : proposedContentOffset.y + 1000 * velocity.y) + midSide
         
         var targetContentOffset: CGPoint
         if isHorizontal {
