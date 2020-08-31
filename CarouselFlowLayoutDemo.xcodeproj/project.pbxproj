@@ -32,7 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		01D3876B1D1C4B9D00CE4E1F /* UPCarouselFlowLayoutDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UPCarouselFlowLayoutDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		01D3876B1D1C4B9D00CE4E1F /* CarouselFlowLayoutDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarouselFlowLayoutDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01D3878B1D229BFC00CE4E1F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01D3878C1D229BFC00CE4E1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01D3878E1D229BFC00CE4E1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 		01D3876C1D1C4B9D00CE4E1F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				01D3876B1D1C4B9D00CE4E1F /* UPCarouselFlowLayoutDemo.app */,
+				01D3876B1D1C4B9D00CE4E1F /* CarouselFlowLayoutDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,9 +92,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		01D3876A1D1C4B9D00CE4E1F /* UPCarouselFlowLayoutDemo */ = {
+		01D3876A1D1C4B9D00CE4E1F /* CarouselFlowLayoutDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01D3877D1D1C4B9D00CE4E1F /* Build configuration list for PBXNativeTarget "UPCarouselFlowLayoutDemo" */;
+			buildConfigurationList = 01D3877D1D1C4B9D00CE4E1F /* Build configuration list for PBXNativeTarget "CarouselFlowLayoutDemo" */;
 			buildPhases = (
 				01D387671D1C4B9D00CE4E1F /* Sources */,
 				01D387681D1C4B9D00CE4E1F /* Frameworks */,
@@ -105,9 +105,9 @@
 			);
 			dependencies = (
 			);
-			name = UPCarouselFlowLayoutDemo;
+			name = CarouselFlowLayoutDemo;
 			productName = UPCardCollectionViewLayoutDemo;
-			productReference = 01D3876B1D1C4B9D00CE4E1F /* UPCarouselFlowLayoutDemo.app */;
+			productReference = 01D3876B1D1C4B9D00CE4E1F /* CarouselFlowLayoutDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -127,7 +127,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 01D387661D1C4B9D00CE4E1F /* Build configuration list for PBXProject "UPCarouselFlowLayoutDemo" */;
+			buildConfigurationList = 01D387661D1C4B9D00CE4E1F /* Build configuration list for PBXProject "CarouselFlowLayoutDemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -141,7 +141,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				01D3876A1D1C4B9D00CE4E1F /* UPCarouselFlowLayoutDemo */,
+				01D3876A1D1C4B9D00CE4E1F /* CarouselFlowLayoutDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -309,7 +309,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = UP.UPCarouselFlowLayoutDemo;
-				PRODUCT_NAME = UPCarouselFlowLayoutDemo;
+				PRODUCT_NAME = CarouselFlowLayoutDemo;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 			};
@@ -325,7 +325,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = UP.UPCarouselFlowLayoutDemo;
-				PRODUCT_NAME = UPCarouselFlowLayoutDemo;
+				PRODUCT_NAME = CarouselFlowLayoutDemo;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 			};
@@ -334,7 +334,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		01D387661D1C4B9D00CE4E1F /* Build configuration list for PBXProject "UPCarouselFlowLayoutDemo" */ = {
+		01D387661D1C4B9D00CE4E1F /* Build configuration list for PBXProject "CarouselFlowLayoutDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01D3877B1D1C4B9D00CE4E1F /* Debug */,
@@ -343,7 +343,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01D3877D1D1C4B9D00CE4E1F /* Build configuration list for PBXNativeTarget "UPCarouselFlowLayoutDemo" */ = {
+		01D3877D1D1C4B9D00CE4E1F /* Build configuration list for PBXNativeTarget "CarouselFlowLayoutDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01D3877E1D1C4B9D00CE4E1F /* Debug */,
